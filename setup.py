@@ -23,6 +23,7 @@ install_requires = [
     'click>=6.6',
     'feedparser>=5.2.1',
     'requests>=2.11.1',
+    'six>=1.10.0',
 ]
 
 setup_requires = [
@@ -32,6 +33,8 @@ setup_requires = [
 docs_require = []
 
 tests_require = [
+    'httpretty>=0.8.14',
+    'mock>=2.0.0',
     'pytest>=3.0.3',
     'pytest-cov>=2.3.1',
     'pytest-pep8>=1.0.6',

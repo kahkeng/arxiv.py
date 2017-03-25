@@ -131,7 +131,10 @@ def test_find_supports_i_and_ids(runner):
     result = runner.invoke(cli, ['find', '--ids', 'au:del_maestro'])
 
     assert result.exit_code == 0
-    assert result.output == '1111.2011v2 cond-mat/0607501v2'
+    assert result.output == \
+        '1201.4869v1 cond-mat/0412498v1 cond-mat/0603029v1 1005.5383v1 ' \
+        '1312.6177v1 1303.6954v2 1412.6529v2 1611.03838v2 ' \
+        'cond-mat/0607501v2 cond-mat/0702661v2'
 
 
 @pytest.mark.httpretty
