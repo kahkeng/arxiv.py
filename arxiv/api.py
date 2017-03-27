@@ -50,7 +50,7 @@ class Client(object):
     def _query(self, **kwargs):
         query = _build_query(**kwargs)
         if query in self._cache:
-            return self._cache(query)
+            return self._cache[query]
 
         response = post(API_BASE_URL, data=query)
         if not response.ok:
