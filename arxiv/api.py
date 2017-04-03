@@ -12,11 +12,24 @@ from .core import _build_filename, _build_query, _get_id
 from .errors import ArxivAPIError
 from .utils import has, drip
 
+import pickle
+import os.path
+
 
 class Client(object):
 
-    def __init__(self):
-        self._cache = {}
+    def __init__(self, pickle_path=None):
+        """Costruct a client.
+
+        If pickle_path is specified, we will load the cache from this file
+        and dump to it on any changes.
+
+        """
+        self.pickle_path = pickle_path
+        if self.pickle_path and os.path.exists(self.pickle_path):
+            self._cache = pickle.load(open(self.pickle_path, 'rb'))
+        else:
+            self._cache = {}
 
     def download(self, id_list, **kwargs):
         def _download(id_):
@@ -57,4 +70,6 @@ class Client(object):
             raise ArxivAPIError(response.reason)
 
         self._cache[query] = response.content
+        if self.pickle_path:
+            pickle.dump(self._cache, open(self.pickle_path, 'wb'))
         return self._cache[query]
